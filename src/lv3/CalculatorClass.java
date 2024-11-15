@@ -17,7 +17,6 @@ public class CalculatorClass {
 
             System.out.print("두 번째 값을 입력해주세요 : ");
             int y = scanner.nextInt();
-
             calculate(x, operator, y);
         } catch (InputMismatchException e) {
             System.out.println("잘못된 입력 값 입니다.");
