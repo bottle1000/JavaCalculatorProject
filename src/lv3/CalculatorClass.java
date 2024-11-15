@@ -1,59 +1,62 @@
 package lv3;
-
-// 조회할 때 제일 큰 수? 1개만 보여주면 되나 lv 2에서는 추가할 때마다 전부 보여줬는데
-// 정수, 실수 입력 받을 때, String을 써서 유연하게 바꾸는 것이 좋나
-
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Stack;
 
 public class CalculatorClass {
-    private Stack<String> resultStack = new Stack<>();
+    private final Stack<Integer> resultStack = new Stack<>(); //재할당 방지
 
     public void procedure(Scanner scanner) {
-        System.out.print("첫 번째 값을 입력해주세요 : ");
-        String x = scanner.nextLine();
+        try {
+            System.out.print("첫 번째 값을 입력해주세요 : ");
+            int x = scanner.nextInt();
+            scanner.nextLine();
 
-        System.out.print("사칙연산 기호를 입력해주세요 : ");
-        String operator = scanner.nextLine();
+            System.out.print("사칙연산 기호를 입력해주세요 : ");
+            String operator = scanner.nextLine();
 
-        System.out.print("두 번째 값을 입력해주세요 : ");
-        String y = scanner.nextLine();
+            System.out.print("두 번째 값을 입력해주세요 : ");
+            int y = scanner.nextInt();
 
-        calculate(x, operator, y);
+            calculate(x, operator, y);
+        } catch (InputMismatchException e) {
+            System.out.println("잘못된 입력 값 입니다.");
+        }
     }
 
-    public void calculate(String x, String operator, String y) {
+    public void calculate(int x, String operator, int y) {
         int result;
+        OperatorType operatorType = OperatorType.fromStringToOperatorType(operator);
 
-        switch (operator) {
-            case "+":
-                result = Integer.px + y;
-                Integer.parseInt(x);
-                System.out.println("결과 : " + result);
-                resultStack.add(result);
-                break;
-            case "-":
-                result = x - y;
-                System.out.println("결과 : " + result);
-                resultStack.add(result);
-                break;
-            case "*":
-                result = x * y;
-                System.out.println("결과 : " + result);
-                resultStack.add(result);
-                break;
-            case "/":
-                if (y == 0) {
-                    System.out.println("분모가 0일 수 없습니다! 선택창으로 돌아갑니다.");
-                    break;
+        if (operatorType != null) { // fromStringToOperatorType 메서드에 반환값이 null도 있으니 null 체크
+            switch (operatorType) {
+                case PLUS -> {
+                    result = x + y;
+                    resultStack.add(result);
+                    System.out.println(result);
                 }
-                result = x / y;
-                System.out.println("결과 : " + result);
-                resultStack.add(result);
-                break;
-            default:
-                System.out.println("잘못된 연산 기호입니다. 선택창으로 돌아갑니다.");
+                case SUB -> {
+                    result = x - y;
+                    resultStack.add(result);
+                    System.out.println(result);
+                }
+                case MULTI -> {
+                    result = x * y;
+                    resultStack.add(result);
+                    System.out.println(result);
+                }
+                case DIVIDE -> {
+                    if (y == 0) {
+                        System.out.println("두 번째 수는 0이 될 수 없습니다.");
+                    }
+                    result = x / y;
+                    resultStack.add(result);
+                    System.out.println(result);
+                }
+            }
         }
+
+
     }
 
     // 계산 종료 여부 코드
@@ -65,14 +68,14 @@ public class CalculatorClass {
 
 
     // 과거 결과 값 조회 코드
-    public Stack<String> getResult() {
+    public Stack<Integer> getResult() {
         return resultStack;
     }
 
-    // 과거 결과 값 변경 코드
-    public void setResult(Stack<String> resultStack) {
-        this.resultStack = resultStack;
-    }
+//    // 과거 결과 값 변경 코드
+//    public void setResult(Stack<Integer> resultStack) {
+//        this.resultStack = resultStack;
+//    }
 
     // 제일 최근 결과 값 1개 삭제 코드
     public void removeResult() {
