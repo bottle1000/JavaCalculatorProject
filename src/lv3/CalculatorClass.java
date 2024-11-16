@@ -2,11 +2,19 @@ package lv3;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CalculatorClass {
-    private final Stack<Integer> resultStack = new Stack<>(); //재할당 방지
+
+    ResultStorage resultStorage;
+
+    public CalculatorClass(ResultStorage resultStorage) {
+        this.resultStorage = resultStorage;
+    }
 
     public void procedure(Scanner scanner) {
+
         try {
             System.out.print("첫 번째 값을 입력해주세요 : ");
             int x = scanner.nextInt();
@@ -17,11 +25,15 @@ public class CalculatorClass {
 
             System.out.print("두 번째 값을 입력해주세요 : ");
             int y = scanner.nextInt();
+            scanner.nextLine();
+
+
             calculate(x, operator, y);
         } catch (InputMismatchException e) {
             System.out.println("잘못된 입력 값 입니다.");
         }
     }
+
 
     public void calculate(int x, String operator, int y) {
         int result;
@@ -31,54 +43,48 @@ public class CalculatorClass {
             switch (operatorType) {
                 case PLUS -> {
                     result = x + y;
-                    resultStack.add(result);
-                    System.out.println(result);
+                    resultStorage.addResult(result);
                 }
                 case SUB -> {
                     result = x - y;
-                    resultStack.add(result);
-                    System.out.println(result);
+                    resultStorage.addResult(result);
                 }
                 case MULTI -> {
                     result = x * y;
-                    resultStack.add(result);
-                    System.out.println(result);
+                    resultStorage.addResult(result);
                 }
                 case DIVIDE -> {
                     if (y == 0) {
                         System.out.println("두 번째 수는 0이 될 수 없습니다.");
                     }
                     result = x / y;
-                    resultStack.add(result);
-                    System.out.println(result);
+                    resultStorage.addResult(result);
                 }
+            }
+
+
+        }
+    }
+
+        // 계산 종료 여부 코드
+        public void endProgram (String recheck){
+            if (recheck.equals("exit")) {
+                System.out.println("프로그램을 종료합니다.");
             }
         }
 
 
-    }
-
-    // 계산 종료 여부 코드
-    public void endProgram(String recheck) {
-        if (recheck.equals("exit")){
-            System.out.println("프로그램을 종료합니다.");
-        }
-    }
-
-
-    // 과거 결과 값 조회 코드
-    public Stack<Integer> getResult() {
-        return resultStack;
-    }
-
-//    // 과거 결과 값 변경 코드
-//    public void setResult(Stack<Integer> resultStack) {
-//        this.resultStack = resultStack;
+//    // 특정 값 보다 큰 값들 나열
+//    public void getLargestNumbers(Scanner scanner) {
+//        System.out.print("특정 값을 입력해주세요 : ");
+//        int specificValue = scanner.nextInt();
+//        scanner.nextLine();
+//
+//        Stream<Integer> integerStream = (Stream<Integer>) resultStack.stream()
+//                .filter(numbers -> numbers > specificValue)
+//                        .toList();
+//        System.out.println("특정 값보다 큰 수들을 나열하겠습니다." + integerStream);
 //    }
 
-    // 제일 최근 결과 값 1개 삭제 코드
-    public void removeResult() {
-        resultStack.pop();
-        System.out.println("최근 한 건 내역이 삭제 되었습니다." + getResult());
-    }
+
 }

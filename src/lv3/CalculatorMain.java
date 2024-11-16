@@ -5,7 +5,8 @@ import java.util.Scanner;
 
 public class CalculatorMain {
     public static void main(String[] args) {
-        CalculatorClass calculatorClass = new CalculatorClass();
+        ResultStorage resultStorage = new ResultStorage();
+        CalculatorClass calculatorClass = new CalculatorClass(resultStorage);
 
         Scanner scanner = new Scanner(System.in);
         try {
@@ -18,11 +19,12 @@ public class CalculatorMain {
                     System.out.println("연산을 진행합니다.");
                     calculatorClass.procedure(scanner);
                 } else if (choice == 2) {
-                    System.out.println(calculatorClass.getResult());
+                    resultStorage.getResult();
                 } else if (choice == 3) {
-                    calculatorClass.removeResult();
+                    System.out.println("최근 1건의 내역을 삭제합니다. ");
+                    resultStorage.removeResult();
                 } else if (choice == 4) {
-                    System.out.print("종료를 선택하셨습니다. 정말로 종료하시겠습니까?(exit를 입력하시면 종료됩니다) ");
+                    System.out.print("종료를 선택하셨습니다. 정말로 종료하시겠습니까?(exit를 입력하시면 종료됩니다.)");
                     String recheck = scanner.nextLine();
                     calculatorClass.endProgram(recheck);
                     break;
