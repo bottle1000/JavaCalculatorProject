@@ -20,6 +20,7 @@ public class CalculatorMain {
                     calculatorClass.procedure(scanner);
                 } else if (choice == 2) {
                     resultStorage.getResult();
+                    resultStorage.getLargestNumbers(scanner);
                 } else if (choice == 3) {
                     System.out.println("최근 1건의 내역을 삭제합니다. ");
                     resultStorage.removeResult();

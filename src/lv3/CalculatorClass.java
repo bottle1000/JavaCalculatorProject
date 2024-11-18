@@ -1,9 +1,6 @@
 package lv3;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.Stack;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class CalculatorClass {
 
@@ -74,17 +71,7 @@ public class CalculatorClass {
         }
 
 
-//    // 특정 값 보다 큰 값들 나열
-//    public void getLargestNumbers(Scanner scanner) {
-//        System.out.print("특정 값을 입력해주세요 : ");
-//        int specificValue = scanner.nextInt();
-//        scanner.nextLine();
-//
-//        Stream<Integer> integerStream = (Stream<Integer>) resultStack.stream()
-//                .filter(numbers -> numbers > specificValue)
-//                        .toList();
-//        System.out.println("특정 값보다 큰 수들을 나열하겠습니다." + integerStream);
-//    }
+
 
 
 }
