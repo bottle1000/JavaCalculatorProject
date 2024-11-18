@@ -22,7 +22,7 @@ public class ResultStorage {
 
     // 결과 내역 중 최근 1건 삭제
     public void removeResult() {
-        if (stack.isEmpty()) {
+        if (!stack.isEmpty()) {
             stack.pop();
             System.out.println("삭제가 완료 되었습니다.");
         } else {
