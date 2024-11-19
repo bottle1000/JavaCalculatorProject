@@ -53,6 +53,50 @@ public class ResultStorage {
         }
     }
 
+    //결과 내역 중 중복 값들 제외
+    public void getDistinctResults() {
+        List<Integer> distinctNumbers =stack.stream()
+                .distinct()
+                .collect(Collectors.toList());
+
+        System.out.println("중복 값 제외 결과 내역입니다." + distinctNumbers);
+    }
+
+    //결과 내역들을 전부 더하는 기능
+    public void getResultSum() {
+        int sum = stack.stream()
+                .reduce(0, Integer::sum);
+        System.out.println("결과 내역들의 총 합입니다 : " + sum);
+    }
+
+    //결과 내역 중 중복을 제거하고 전부 더하기
+    public void getDistinctResultSum() {
+        Integer sum = stack.stream()
+                .distinct()
+                .reduce(0, Integer::sum);
+
+        System.out.println("결과 내역 중 중복을 제외한 총 합입니다 : " + sum);
+    }
+
+    //결과 내역 중 중복을 제거하고 정렬하기
+    public void getDistinctSort() {
+        List<Integer> sorted = stack.stream()
+                .distinct()
+                .sorted()
+                .collect(Collectors.toList());
+        System.out.println("결과 내역 중 중복을 제외한 정렬입니다. " + sorted);
+    }
+
+    //결과 내역 중 중복을 제거하고 짝수만 출력
+    public void getDistinctEven() {
+        List<Integer> distinctEven = stack.stream()
+                .distinct()
+                .filter(result -> result % 2 == 0)
+                .collect(Collectors.toList());
+
+        System.out.println("결과 내역 중 중복을 제거하고 짝수만 출력합니다. " + distinctEven);
+    }
+
 
 
 }
